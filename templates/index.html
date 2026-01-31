@@ -7,6 +7,7 @@
 
 <h1>Tick-It Focus</h1>
 
+<!-- ---------------- ADD TASK FORM ---------------- -->
 <h3>Add Task</h3>
 
 <form method="POST" action="/add-task">
@@ -21,17 +22,59 @@
 
 <hr>
 
-<h3>Tasks (Pending)</h3>
+<!-- ---------------- PENDING TASKS ---------------- -->
+<h3>Pending Tasks</h3>
 
 <ul>
-    {% for task in tasks %}
+    {% for task in pending_tasks %}
         <li>
-            {{ task["title"] }} — {{ task["focus_minutes"] }} min
+            <strong>{{ task["title"] }}</strong>
+            — {{ task["focus_minutes"] }} min
         </li>
     {% else %}
-        <li>No tasks yet</li>
+        <li>No pending tasks</li>
     {% endfor %}
 </ul>
+
+<hr>
+
+<!-- ---------------- COMPLETED TASKS ---------------- -->
+<h3>Completed Tasks</h3>
+
+<ul>
+    {% for task in completed_tasks %}
+        <li>
+            {{ task["title"] }} ✔
+        </li>
+    {% else %}
+        <li>No completed tasks yet</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- ---------------- TIMER SECTION ---------------- -->
+<h2>Focus Timer</h2>
+
+<div id="timer-section">
+    <h3 id="current-task">No task running</h3>
+
+    <div id="timer-display">00:00</div>
+
+    <p id="timer-state">Idle</p>
+
+    <button id="start-btn">Start</button>
+    <button id="pause-btn" disabled>Pause</button>
+    <button id="skip-btn" disabled>Skip</button>
+</div>
+
+<!-- ---------------- PASS TASKS TO JS ---------------- -->
+<script>
+    const TASKS = {{ pending_tasks | tojson | safe }};
+</script>
+
+
+<script src="/static/js/timer.js"></script>
 
 </body>
 </html>
