@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tick-It Focus</title>
+</head>
+<body>
+
+<h1>Tick-It Focus</h1>
+
+<h3>Tasks (Pending)</h3>
+
+<ul>
+    {% for task in tasks %}
+        <li>
+            {{ task["title"] }} — {{ task["focus_minutes"] }} min
+        </li>
+    {% else %}
+        <li>No tasks yet</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
